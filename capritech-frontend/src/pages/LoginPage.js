@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { login } from '../services/authService';
 import { useNavigate } from 'react-router-dom';
+import '../styles/LoginPage.css';
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -17,29 +19,33 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       const res = await login(formData);
-      console.log('Login Success:', res);
-
-      // Save user info to localStorage
       localStorage.setItem('userInfo', JSON.stringify(res));
-
-      // Redirect based on user role
-      if (res.isAdmin) {
-        navigate('/admin/dashboard');
-      } else {
-        navigate('/customer/dashboard');
-      }
-    } catch (error) {
-      console.error(error.response.data);
-      alert('Login failed! See console.');
+      navigate(res.isAdmin ? '/admin/dashboard' : '/customer/dashboard');
+    } catch (err) {
+      console.error(err);
+      setError('Invalid email or password');
     }
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <input name="email" placeholder="Email" onChange={handleChange} required />
-        <input name="password" type="password" placeholder="Password" onChange={handleChange} required />
+    <div className="login-container">
+      <form className="login-form" onSubmit={handleSubmit}>
+        <h2>Login to CapriTech</h2>
+        {error && <p className="error">{error}</p>}
+        <input
+          name="email"
+          type="email"
+          placeholder="Email"
+          onChange={handleChange}
+          required
+        />
+        <input
+          name="password"
+          type="password"
+          placeholder="Password"
+          onChange={handleChange}
+          required
+        />
         <button type="submit">Login</button>
       </form>
     </div>

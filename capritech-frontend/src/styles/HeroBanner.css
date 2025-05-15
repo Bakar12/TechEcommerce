@@ -1,0 +1,40 @@
+.hero-banner {
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    color: white;
+    padding: 100px 20px;
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .hero-content h1 {
+    font-size: 3em;
+    margin-bottom: 0.5em;
+  }
+  
+  .hero-content p {
+    font-size: 1.2em;
+    margin-bottom: 1.5em;
+    animation: fadeInUp 1s ease-in-out;
+  }
+  
+  .hero-button {
+    padding: 12px 30px;
+    font-size: 1em;
+    background-color: #ff6600;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+  }
+  
+  .hero-button:hover {
+    background-color: #e65c00;
+  }
+  
+  @keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  

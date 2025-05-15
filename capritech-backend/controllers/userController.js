@@ -60,4 +60,12 @@ const authUser = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, authUser };
+// @desc    Get all users (admin only)
+// @route   GET /api/users
+// @access  Private/Admin
+const getUsers = async (req, res) => {
+  const users = await User.find({});
+  res.json(users); // ✅ This returns ALL users (admin and customer)
+};
+
+module.exports = { registerUser, authUser, getUsers };

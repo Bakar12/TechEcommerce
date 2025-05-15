@@ -9,8 +9,8 @@ import AdminProductListPage from './adminPages/AdminProductListPage';
 import AdminProductEditPage from './adminPages/AdminProductEditPage';
 import AdminContentPage from './adminPages/AdminContentPage';
 import Navbar from './components/Navbar';
-import CartPage from './customer/CartPage';
-
+import CartPage from './customerPages/CartPage';
+import AdminUserListPage from './adminPages/AdminUserListPage';
 
 
 function App() {
@@ -27,6 +27,9 @@ function App() {
         <Route path="/admin/products" element={<AdminProductListPage />} />
         <Route path="/admin/product/:id/edit" element={<AdminProductEditPage />} />
         <Route path="/admin/content" element={<AdminContentPage />} />
+
+        <Route path="/admin/users" element={<AdminUserListPage />} />
+
         <Route path="/cart" element={<CartPage />} />
 
 
