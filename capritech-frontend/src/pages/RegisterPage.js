@@ -13,7 +13,7 @@ const RegisterPage = () => {
   const [agreed, setAgreed] = useState(false);
   const [notRobot, setNotRobot] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState('');
-  const [message, setMessage] = useState('');
+  // Removed unused message state
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -69,7 +69,7 @@ const RegisterPage = () => {
       <form className="register-form" onSubmit={handleSubmit}>
         <h2>Create Your Account</h2>
         {error && <p className="error">{error}</p>}
-        {message && <p className="success">{message}</p>}
+        {/* Removed unused message display */}
 
         <input name="name" placeholder="Full Name" onChange={handleChange} required />
         <input name="email" placeholder="Email" type="email" onChange={handleChange} required />

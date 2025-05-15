@@ -12,7 +12,7 @@ const generateToken = (id) => {
 // @route   POST /api/users/register
 // @access  Public
 const registerUser = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, phone} = req.body;
 
   const userExists = await User.findOne({ email });
 
@@ -24,6 +24,7 @@ const registerUser = async (req, res) => {
     name,
     email,
     password,
+    phone,
   });
 
   if (user) {
