@@ -57,3 +57,20 @@
     text-align: center;
   }
   
+  .password-strength {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .password-strength.weak {
+    color: red;
+  }
+  
+  .password-strength.medium {
+    color: orange;
+  }
+  
+  .password-strength.strong {
+    color: green;
+  }
+  
