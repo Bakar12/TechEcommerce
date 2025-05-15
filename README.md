@@ -26,6 +26,7 @@ Built with:
 - Mongoose
 - JWT Authentication
 - Context API for State Management
+<<<<<<< HEAD
 
 ## How to Run Locally
 
@@ -37,3 +38,5 @@ cd capritech-frontend
 npm install
 
 '''
+=======
+>>>>>>> 6c29f7d734055cbfa88492a340a3117eeb02693d
