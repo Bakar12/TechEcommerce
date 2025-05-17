@@ -11,6 +11,9 @@ import AdminContentPage from './adminPages/AdminContentPage';
 import Navbar from './components/Navbar';
 import CartPage from './customerPages/CartPage';
 import AdminUserListPage from './adminPages/AdminUserListPage';
+import Footer from './components/Footer';
+
+
 
 
 function App() {
@@ -33,8 +36,9 @@ function App() {
         <Route path="/cart" element={<CartPage />} />
 
 
-        
+
       </Routes>
+        <Footer />
     </Router>
   );
 }
