@@ -6,6 +6,7 @@ const path = require('path');
 const contentRoutes = require('./routes/contentRoutes');
 const userRoutes = require('./routes/userRoutes');
 const productRoutes = require('./routes/productRoutes');
+const appointmentsRoute = require('./routes/appointmentRoutes');
 
 dotenv.config();
 const app = express();
@@ -16,6 +17,7 @@ app.use(cors());
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/appointments', appointmentsRoute);
 app.use('/api/content', contentRoutes);
 
 // Simple API Test
