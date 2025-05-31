@@ -1,31 +1,28 @@
+// filepath: 
 const express = require('express');
 const router = express.Router();
 const Appointment = require('../models/Appointment');
-const nodemailer = require('nodemailer');
 
-// POST /api/appointments
+// Create appointment
 router.post('/', async (req, res) => {
-  const { name, email, phone, service, date, time, notes } = req.body;
-
   try {
-    const newAppointment = new Appointment({
-      name,
-      email,
-      phone,
-      service,
-      date,
-      time,
-      notes,
-    });
+    const appointment = new Appointment(req.body);
+    await appointment.save();
+    res.status(201).json(appointment);
+  } catch (err) {
+    res.status(400).json({ message: 'Failed to create appointment' });
+  }
+});
 
-    await newAppointment.save();
-
-    // Send confirmation email (optional)
-    // Configure your email transporter and send email here
-
-    res.status(201).json({ message: 'Appointment booked successfully' });
-  } catch (error) {
-    res.status(500).json({ message: 'Server error. Please try again later.' });
+// Get appointments (optionally filter by email)
+router.get('/', async (req, res) => {
+  const { email } = req.query;
+  try {
+    const query = email ? { email } : {};
+    const appointments = await Appointment.find(query);
+    res.json(appointments);
+  } catch {
+    res.status(500).json({ message: 'Server error' });
   }
 });
 

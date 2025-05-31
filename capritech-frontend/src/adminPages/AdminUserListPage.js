@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const AdminUserListPage = () => {
   const [users, setUsers] = useState([]);
@@ -20,10 +21,8 @@ const AdminUserListPage = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        console.log('Fetched users:', data); // ✅ Debug log
         setUsers(data);
       } catch (err) {
-        console.error('Error fetching users:', err);
         setError('Failed to fetch users.');
       }
     };
@@ -69,7 +68,13 @@ const AdminUserListPage = () => {
                 <td>{isAdmin ? 'Yes' : 'No'}</td>
                 <td>
                   {!isAdmin && (
-                    <button onClick={() => deleteUser(_id)}>Delete</button>
+                    <>
+                      <Link to={`/admin/user/${_id}/appointments`}>
+                        <button>View Appointments</button>
+                      </Link>
+                      &nbsp;
+                      <button onClick={() => deleteUser(_id)}>Delete</button>
+                    </>
                   )}
                 </td>
               </tr>
