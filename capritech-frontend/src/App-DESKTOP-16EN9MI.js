@@ -9,9 +9,10 @@ import AdminProductListPage from './adminPages/AdminProductListPage';
 import AdminProductEditPage from './adminPages/AdminProductEditPage';
 import AdminContentPage from './adminPages/AdminContentPage';
 import Navbar from './components/Navbar';
-import CartPage from './customerPages/CartPage';
 import AdminUserListPage from './adminPages/AdminUserListPage';
 import Footer from './components/Footer';
+import CustomerAppointmentsPage from './customerPages/CustomerAppointmentsPage';
+import AdminUserAppointmentsPage from './adminPages/AdminUserAppointmentsPage';
 
 
 
@@ -27,18 +28,15 @@ function App() {
         <Route path="/admin/add-product" element={<AdminAddProductPage />} />
         <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
         <Route path="/customer/dashboard" element={<CustomerDashboardPage />} />
+        <Route path="/customer/appointments" element={<CustomerAppointmentsPage />} /> {/* <-- Add this */}
         <Route path="/admin/products" element={<AdminProductListPage />} />
         <Route path="/admin/product/:id/edit" element={<AdminProductEditPage />} />
         <Route path="/admin/content" element={<AdminContentPage />} />
-
         <Route path="/admin/users" element={<AdminUserListPage />} />
-
-        <Route path="/cart" element={<CartPage />} />
-
-
+        <Route path="/admin/user/:id/appointments" element={<AdminUserAppointmentsPage />} />
 
       </Routes>
-        <Footer />
+      <Footer />
     </Router>
   );
 }

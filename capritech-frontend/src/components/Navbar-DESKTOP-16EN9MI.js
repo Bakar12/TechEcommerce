@@ -26,14 +26,15 @@ const Navbar = () => {
             <Link to="/admin/products">Products</Link>
             <Link to="/admin/users">Users</Link>
             <Link to="/admin/content">Website</Link>
+            
           </>
         )}
         {userInfo && !userInfo.isAdmin && (
-          <>
-            <Link to="/customer/dashboard">My Account</Link>
-            <Link to="/cart">Cart</Link>
-          </>
-        )}
+        <>
+          <Link to="/customer/dashboard">My Account</Link>
+          <Link to="/customer/appointments">Appointments</Link>
+        </>
+      )}
       </div>
 
       {userInfo && (
