@@ -5,16 +5,14 @@ import LoginPage from './pages/LoginPage';
 import AdminAddProductPage from './adminPages/AdminAddProductPage';
 import AdminDashboardPage from './adminPages/AdminDashboardPage';
 import CustomerDashboardPage from './customerPages/CustomerDashboardPage';
+import CustomerAppointmentsPage from './customerPages/CustomerAppointmentsPage';
 import AdminProductListPage from './adminPages/AdminProductListPage';
 import AdminProductEditPage from './adminPages/AdminProductEditPage';
 import AdminContentPage from './adminPages/AdminContentPage';
 import Navbar from './components/Navbar';
-import CartPage from './customerPages/CartPage';
 import AdminUserListPage from './adminPages/AdminUserListPage';
+import AdminUserAppointmentsPage from './adminPages/AdminUserAppointmentsPage';
 import Footer from './components/Footer';
-
-
-
 
 function App() {
   return (
@@ -27,18 +25,16 @@ function App() {
         <Route path="/admin/add-product" element={<AdminAddProductPage />} />
         <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
         <Route path="/customer/dashboard" element={<CustomerDashboardPage />} />
+        <Route path="/customer/appointments" element={<CustomerAppointmentsPage />} />
         <Route path="/admin/products" element={<AdminProductListPage />} />
         <Route path="/admin/product/:id/edit" element={<AdminProductEditPage />} />
         <Route path="/admin/content" element={<AdminContentPage />} />
-
         <Route path="/admin/users" element={<AdminUserListPage />} />
-
-        <Route path="/cart" element={<CartPage />} />
-
-
-
+        <Route path="/admin/user/:id/appointments" element={<AdminUserAppointmentsPage />} />
+        {/* Remove the cart route if not needed */}
+        {/* <Route path="/cart" element={<CartPage />} /> */}
       </Routes>
-        <Footer />
+      <Footer />
     </Router>
   );
 }
