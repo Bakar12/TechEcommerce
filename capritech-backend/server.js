@@ -19,6 +19,8 @@ app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/appointments', appointmentRoutes);
 app.use('/api/content', contentRoutes);
+app.use('/uploads', express.static('uploads'));
+
 
 // Simple API Test
 app.get('/', (req, res) => {

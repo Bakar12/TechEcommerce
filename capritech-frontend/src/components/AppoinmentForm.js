@@ -11,7 +11,7 @@ const AppointmentForm = () => {
     time: '',
     notes: '',
   });
-
+  const [image, setImage] = useState(null);
   const [message, setMessage] = useState('');
 
   const services = [
@@ -26,10 +26,20 @@ const AppointmentForm = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('/api/appointments', formData);
+      const data = new FormData();
+      Object.entries(formData).forEach(([key, value]) => data.append(key, value));
+      if (image) data.append('image', image);
+
+      await axios.post('/api/appointments', data, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
       setMessage('Appointment booked successfully!');
       setFormData({
         name: '',
@@ -40,6 +50,7 @@ const AppointmentForm = () => {
         time: '',
         notes: '',
       });
+      setImage(null);
     } catch (error) {
       setMessage('Failed to book appointment. Please try again.');
     }
@@ -49,7 +60,7 @@ const AppointmentForm = () => {
     <div className="max-w-md mx-auto p-6 bg-white rounded shadow">
       <h2 className="text-2xl font-bold mb-4">Book a Repair Appointment</h2>
       {message && <p className="mb-4 text-green-600">{message}</p>}
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4" encType="multipart/form-data">
         <input
           type="text"
           name="name"
@@ -114,8 +125,13 @@ const AppointmentForm = () => {
           onChange={handleChange}
           className="w-full p-2 border rounded"
         ></textarea>
-        {/* CAPTCHA Integration Placeholder */}
-        {/* <div className="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div> */}
+        <input
+          type="file"
+          name="image"
+          accept="image/*"
+          onChange={handleImageChange}
+          className="w-full"
+        />
         <button
           type="submit"
           className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"

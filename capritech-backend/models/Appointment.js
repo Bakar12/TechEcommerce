@@ -8,6 +8,7 @@ const appointmentSchema = new mongoose.Schema({
   date: { type: String, required: true },
   time: { type: String, required: true },
   notes: { type: String },
+  image: { type: String, default: '' }, // Optional image field
   createdAt: { type: Date, default: Date.now },
 });
 

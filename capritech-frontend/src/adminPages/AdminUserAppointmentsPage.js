@@ -1,50 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams, Link } from 'react-router-dom';
 
-const AdminUserAppointmentsPage = () => {
-  const { id } = useParams();
+const AdminAppointmentsPage = () => {
   const [appointments, setAppointments] = useState([]);
-  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const fetchUserAndAppointments = async () => {
-      try {
-        const token = JSON.parse(localStorage.getItem('userInfo')).token;
-        // Fetch user details
-        const userRes = await axios.get('http://localhost:5000/api/users', {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const foundUser = userRes.data.find(u => u._id === id);
-        setUser(foundUser);
-
-        // Fetch appointments for this user
-        const apptRes = await axios.get(`http://localhost:5000/api/appointments?email=${foundUser.email}`);
-        setAppointments(apptRes.data);
-      } catch (err) {
-        setUser(null);
-        setAppointments([]);
-      }
+    const fetchAppointments = async () => {
+      const { data } = await axios.get('http://localhost:5000/api/appointments');
+      setAppointments(data);
     };
-    fetchUserAndAppointments();
-  }, [id]);
-
-  if (!user) return <div>User not found.</div>;
+    fetchAppointments();
+  }, []);
 
   return (
     <div>
-      <h2>Appointments for {user.name}</h2>
-      <p><b>Email:</b> {user.email}</p>
-      <p><b>Phone:</b> {user.phone}</p>
-      <Link to="/admin/users">&larr; Back to Users</Link>
-      <ul style={{ marginTop: 20 }}>
-        {appointments.length === 0 && <li>No appointments found.</li>}
+      <h1>All Appointments</h1>
+      <ul>
         {appointments.map(a => (
-          <li key={a._id} style={{ marginBottom: 16, padding: 12, border: '1px solid #eee', borderRadius: 8 }}>
-            <b>Service:</b> {a.service}<br />
-            <b>Date:</b> {a.date} <b>Time:</b> {a.time}<br />
-            {a.notes && <><b>Notes:</b> {a.notes}<br /></>}
-            <b>Booked:</b> {new Date(a.createdAt).toLocaleString()}
+          <li key={a._id} style={{ marginBottom: 20 }}>
+            <b>{a.name}</b> ({a.email}, {a.phone})<br />
+            Service: {a.service}<br />
+            Date: {a.date} Time: {a.time}<br />
+            Notes: {a.notes}<br />
+            {a.image && (
+              <img src={`http://localhost:5000${a.image}`} alt="Problem" style={{ maxWidth: 200, marginTop: 8 }} />
+            )}
           </li>
         ))}
       </ul>
@@ -52,4 +32,4 @@ const AdminUserAppointmentsPage = () => {
   );
 };
 
-export default AdminUserAppointmentsPage;
+export default AdminAppointmentsPage;

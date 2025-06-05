@@ -5,6 +5,7 @@ import '../styles/CustomerAppointmentsPage.css';
 const CustomerAppointmentsPage = () => {
   const [appointments, setAppointments] = useState([]);
   const [formData, setFormData] = useState({ service: '', date: '', time: '', notes: '' });
+  const [image, setImage] = useState(null);
   const [message, setMessage] = useState('');
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
@@ -18,18 +19,24 @@ const CustomerAppointmentsPage = () => {
   }, [userInfo, message]);
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleImageChange = (e) => setImage(e.target.files[0]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/appointments', {
-        ...formData,
-        name: userInfo.name,
-        email: userInfo.email,
-        phone: userInfo.phone,
+      const data = new FormData();
+      data.append('name', userInfo.name);
+      data.append('email', userInfo.email);
+      data.append('phone', userInfo.phone);
+      Object.entries(formData).forEach(([key, value]) => data.append(key, value));
+      if (image) data.append('image', image);
+
+      await axios.post('http://localhost:5000/api/appointments', data, {
+        headers: { 'Content-Type': 'multipart/form-data' },
       });
       setMessage('Appointment booked!');
       setFormData({ service: '', date: '', time: '', notes: '' });
+      setImage(null);
     } catch {
       setMessage('Booking failed.');
     }
@@ -40,7 +47,7 @@ const CustomerAppointmentsPage = () => {
       <div className="appointments-form-card">
         <h2>Book a New Appointment</h2>
         {message && <div className="appointments-message">{message}</div>}
-        <form className="appointments-form" onSubmit={handleSubmit}>
+        <form className="appointments-form" onSubmit={handleSubmit} encType="multipart/form-data">
           <div className="appointments-field">
             <label>Service</label>
             <input name="service" placeholder="Service" value={formData.service} onChange={handleChange} required />
@@ -56,6 +63,10 @@ const CustomerAppointmentsPage = () => {
           <div className="appointments-field">
             <label>Notes</label>
             <textarea name="notes" placeholder="Notes" value={formData.notes} onChange={handleChange} />
+          </div>
+          <div className="appointments-field">
+            <label>Upload Image (optional)</label>
+            <input type="file" accept="image/*" onChange={handleImageChange} />
           </div>
           <button className="appointments-btn" type="submit">Book Appointment</button>
         </form>
@@ -75,6 +86,11 @@ const CustomerAppointmentsPage = () => {
                 <span>Status: <b>Booked</b></span>
                 <span>Booked on: {new Date(a.createdAt).toLocaleString()}</span>
               </div>
+              {a.image && (
+                <div>
+                  <img src={`http://localhost:5000${a.image}`} alt="Problem" style={{ maxWidth: 200, marginTop: 8 }} />
+                </div>
+              )}
             </li>
           ))}
         </ul>

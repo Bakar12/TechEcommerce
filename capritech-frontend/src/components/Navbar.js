@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Navbar.css';
+
 const Navbar = () => {
   const navigate = useNavigate();
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
@@ -26,17 +27,16 @@ const Navbar = () => {
             <Link to="/admin/products">Products</Link>
             <Link to="/admin/users">Users</Link>
             <Link to="/admin/content">Website</Link>
-            
+            <Link to="/admin/user-appointments">All Appointments</Link> 
           </>
         )}
         {userInfo && !userInfo.isAdmin && (
-        <>
-          <Link to="/customer/dashboard">My Account</Link>
-          <Link to="/customer/appointments">Appointments</Link>
-        </>
-      )}
+          <>
+            <Link to="/customer/dashboard">My Account</Link>
+            <Link to="/customer/appointments">Appointments</Link>
+          </>
+        )}
       </div>
-
       {userInfo && (
         <div className="navbar-right">
           <span>{userInfo.name}</span>

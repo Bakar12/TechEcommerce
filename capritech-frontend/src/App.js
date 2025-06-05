@@ -12,6 +12,7 @@ import AdminContentPage from './adminPages/AdminContentPage';
 import Navbar from './components/Navbar';
 import AdminUserListPage from './adminPages/AdminUserListPage';
 import AdminUserAppointmentsPage from './adminPages/AdminUserAppointmentsPage';
+
 import Footer from './components/Footer';
 
 function App() {
@@ -30,7 +31,7 @@ function App() {
         <Route path="/admin/product/:id/edit" element={<AdminProductEditPage />} />
         <Route path="/admin/content" element={<AdminContentPage />} />
         <Route path="/admin/users" element={<AdminUserListPage />} />
-        <Route path="/admin/user/:id/appointments" element={<AdminUserAppointmentsPage />} />
+        <Route path="/admin/user-appointments" element={<AdminUserAppointmentsPage />} />
         {/* Remove the cart route if not needed */}
         {/* <Route path="/cart" element={<CartPage />} /> */}
       </Routes>
