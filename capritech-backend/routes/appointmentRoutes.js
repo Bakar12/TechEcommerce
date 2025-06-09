@@ -40,4 +40,17 @@ router.get('/', async (req, res) => {
   }
 });
 
+// PATCH route for updating appointment status (for cancellation)
+router.patch('/:id/status', async (req, res) => {
+  try {
+    const appointment = await Appointment.findById(req.params.id);
+    if (!appointment) return res.status(404).json({ message: 'Appointment not found' });
+    appointment.status = req.body.status;
+    await appointment.save();
+    res.json(appointment);
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to update status' });
+  }
+});
+
 module.exports = router;
